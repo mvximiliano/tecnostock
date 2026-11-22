@@ -1,0 +1,4 @@
+/* Ajustes mínimos sobre Bootstrap */
+.table td, .table th { vertical-align: middle; }
+.fila-stock-bajo > td { background-color: #fdecec !important; }
+.acciones { white-space: nowrap; }

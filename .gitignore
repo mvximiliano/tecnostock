@@ -1,0 +1,9 @@
+# Sistema operativo y editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Registros y temporales
+*.log
+*.tmp
