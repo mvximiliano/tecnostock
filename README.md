@@ -21,3 +21,4 @@ Documentación
 
 - Análisis de requerimientos: `docs/requerimientos.md`
 - Casos de prueba: `docs/pruebas.md`
+- Bitácora: `docs/bitacora.md`
