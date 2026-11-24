@@ -1,8 +1,8 @@
--- =====================================================================
---  TecnoStock · Script de base de datos (MySQL / MariaDB - XAMPP)
---  Crea la base, las tablas con sus restricciones y datos de prueba.
---  ATENCIÓN: borra y vuelve a crear las tablas (se pierden los datos).
--- =====================================================================
+--
+-- Script de base de datos TecnoStock
+-- Crea la base, las tablas y datos de prueba.
+-- Ojo: si ya existen las tablas, se borran y se vuelven a crear.
+--
 
 CREATE DATABASE IF NOT EXISTS tecnostock
     CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS producto;
 DROP TABLE IF EXISTS categoria;
 DROP TABLE IF EXISTS usuario;
 
--- 1. Usuario ------------------------------------------------------------
+-- Tabla de usuarios, con correo único y estado activo/inactivo. La clave se guarda como hash.
 CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre     VARCHAR(100) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE usuario (
     CONSTRAINT chk_usuario_estado CHECK (estado IN (0, 1))
 ) ENGINE = InnoDB;
 
--- 2. Categoría ----------------------------------------------------------
+-- Tabla de categorías de productos, con nombre único y estado activo/inactivo.
 CREATE TABLE categoria (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nombre       VARCHAR(100) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE categoria (
     CONSTRAINT chk_categoria_estado CHECK (estado IN (0, 1))
 ) ENGINE = InnoDB;
 
--- 3. Producto -----------------------------------------------------------
+-- Tabla de productos, con stock y precio. Se relaciona con categoría.
 CREATE TABLE producto (
     id_producto  INT AUTO_INCREMENT PRIMARY KEY,
     codigo       VARCHAR(50)   NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE producto (
 
 CREATE INDEX idx_producto_nombre ON producto (nombre);
 
--- 4. Movimiento ---------------------------------------------------------
+-- Tabla de movimientos de inventario (entradas y salidas)
 CREATE TABLE movimiento (
     id_movimiento INT AUTO_INCREMENT PRIMARY KEY,
     fecha_hora    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,   -- Regla: todo movimiento registra fecha
@@ -80,9 +80,9 @@ CREATE TABLE movimiento (
 
 CREATE INDEX idx_movimiento_fecha ON movimiento (fecha_hora);
 
--- =====================================================================
+
 --  DATOS DE PRUEBA
--- =====================================================================
+
 
 -- Usuario: admin@tecnostock.cl / contraseña: admin123
 INSERT INTO usuario (nombre, correo, clave) VALUES
